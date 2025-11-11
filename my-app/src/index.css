@@ -1,0 +1,346 @@
+/* ---------- RESET ---------- */
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: #f4f7fc;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  background-color: #1e88e5;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+}
+.navbar .left, .navbar .center, .navbar .right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.navbar .center h1 {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+.navbar i {
+  transition: transform 0.2s ease;
+  font-size: 1.1rem;
+}
+.navbar .left button, .navbar .right button {
+  padding: 5px;
+}
+.navbar .left button:hover i, .navbar .right button:hover i {
+  transform: scale(1.2);
+}
+
+/* ---------- LAYOUT ---------- */
+.layout {
+  display: flex;
+  flex: 1;
+  margin-top: 60px;
+}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  background-color: #ffffff;
+  width: 250px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  transition: margin-left 0.3s ease;
+  flex-shrink: 0;
+  z-index: 1000;
+}
+.sidebar.hidden {
+  margin-left: -250px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 15px;
+}
+.sidebar li {
+  margin-bottom: 8px;
+}
+.sidebar .main-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e3f2fd;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;
+  text-align: left;
+}
+.sidebar .main-item:hover {
+  background: #bbdefb;
+}
+.sidebar .main-item .fa-chevron-down {
+  transition: transform 0.3s ease;
+}
+.sidebar .main-item i.rotate {
+  transform: rotate(180deg);
+}
+.sidebar .sub-menu {
+  display: none;
+  padding-left: 15px;
+  margin-top: 5px;
+  animation: dropdown 0.3s ease;
+}
+.sidebar .sub-menu.show {
+  display: block;
+}
+.sidebar .sub-menu li {
+  background: #f9f9f9;
+  margin: 4px 0;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+.sidebar .sub-menu li a {
+  display: block;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.sidebar .sub-menu li:hover {
+  background: #e3f2fd;
+}
+
+@keyframes dropdown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- DASHBOARD CONTENT ---------- */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+.card i {
+  font-size: 24px;
+  color: #1e88e5;
+  margin-bottom: 10px;
+}
+.card h3 {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.card p {
+  color: #555;
+  font-size: 14px;
+}
+
+/* ---------- SETTINGS PANEL ---------- */
+.settings-panel {
+  position: fixed;
+  right: -300px;
+  top: 60px;
+  width: 300px;
+  height: calc(100vh - 60px);
+  background: #ffffff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  transition: right 0.3s ease;
+  padding: 20px;
+  z-index: 1005;
+}
+.settings-panel.show {
+  right: 0;
+}
+
+/* ---------- OVERLAY (for mobile) ---------- */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+}
+.overlay.active {
+  display: block;
+}
+
+/* ---------- RESPONSIVENESS ---------- */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    margin-left: 0; /* Override desktop style */
+  }
+  .sidebar.hidden {
+    transform: translateX(-100%); /* Mobile "hidden" state */
+    margin-left: 0;
+  }
+  .sidebar:not(.hidden) {
+    transform: translateX(0); /* Mobile "shown" state */
+  }
+  
+  .navbar .center h1 {
+    font-size: 18px;
+  }
+  .navbar .left, .navbar .right {
+    gap: 10px;
+  }
+}
+
+/* ---------- WIZARD/STEP MODULE ---------- */
+.wizard-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 25px;
+  margin-top: 20px;
+}
+.wizard-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e88e5;
+}
+.step-indicator {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  margin-bottom: 20px;
+}
+.step-indicator li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  flex: 1;
+  position: relative;
+}
+.step-indicator li.active {
+  color: #1e88e5;
+  font-weight: 600;
+}
+.step-indicator li span {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #eee;
+  border: 2px solid #aaa;
+  display: grid;
+  place-items: center;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+}
+.step-indicator li.active span {
+  background: #1e88e5;
+  border-color: #1e88e5;
+  color: #fff;
+}
+.step-indicator li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #aaa;
+  z-index: -1;
+  transform: translateX(50%);
+}
+
+.step {
+  display: none;
+  animation: dropdown 0.5s ease;
+}
+.step.active {
+  display: block;
+}
+.step h3 {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.step-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.step-navigation button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+.step-navigation button#prev-btn {
+  background: #eee;
+  color: #333;
+}
+.step-navigation button#next-btn {
+  background: #1e88e5;
+  color: #fff;
+}
+.step-navigation button:disabled {
+  background: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.step-navigation button:not(:disabled):hover {
+  opacity: 0.8;
+}

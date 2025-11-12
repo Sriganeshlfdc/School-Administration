@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Montfort School Dashboard</title>
+  
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- YOUR CSS FILE -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="layout-wrapper light-theme">
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="left">
+      <button id="menu-toggle" aria-label="Toggle menu">
+        <i class="fa fa-bars"></i>
+      </button>
+      <button aria-label="User profile">
+        <i class="fa fa-user"></i>
+      </button>
+    </div>
+    <div class="center">
+      <h1>Montfort School</h1>
+    </div>
+    <div class="right">
+      <button id="fullscreen-btn" aria-label="Toggle fullscreen">
+        <i class="fa fa-expand"></i>
+      </button>
+      <button id="settings-btn" aria-label="Toggle settings">
+        <i class="fa fa-cog"></i>
+      </button>
+    </div>
+  </div>
+  <!-- LAYOUT -->
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li>
+          <button class="main-item" data-menu="dashboard">
+            <span><i class="fa fa-chart-bar"></i> Dashboard Overview</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <ul class="sub-menu">
+            <li><a href="#" id="nav-quick-stats">Quick Stats</a></li>
+            <li><a href="#">Recent Activity</a></li>
+            <li><a href="#">Notifications</a></li>
+          </ul>
+        </li>
+        <li>
+          <button class="main-item" data-menu="admin">
+            <span><i class="fa fa-school"></i> Administration</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <ul class="sub-menu">
+            <li><a href="#">Staff Directory</a></li>
+            <li><a href="#">Roles & Permissions</a></li>
+            <li><a href="#">School Calendar</a></li>
+          </ul>
+        </li>
+        <li>
+          <button class="main-item" data-menu="student">
+            <span><i class="fa fa-user-graduate"></i> Student Management</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <ul class="sub-menu">
+            <li><a href="#" id="nav-admissions">Admissions</a></li>
+            <li><a href="#">Attendance Tracker</a></li>
+            <li><a href="#">Gradebook & Reports</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content" id="content">
+    
+      <!-- Dashboard Welcome Module -->
+      <div id="dashboard-module">
+        <h2>Welcome, Administrator 👋</h2>
+        <p>Here are some quick stats and reports for Montfort School:</p>
+        <div class="cards">
+          <div class="card"><i class="fa fa-users"></i><h3>Total Students</h3><p>1,240 Enrolled</p></div>
+          <div class="card"><i class="fa fa-user-tie"></i><h3>Faculty Members</h3><p>85 Active</p></div>
+          <div class="card"><i class="fa fa-bus"></i><h3>Transport Vehicles</h3><p>12 Operational</p></div>
+          <div class="card"><i class="fa fa-book"></i><h3>Library Books</h3><p>8,500 Available</p></div>
+        </div>
+      </div>
+      
+      <!-- Admission Wizard Module -->
+      <div id="admission-module" style="display: none;">
+        <div class="wizard-container">
+          <h2>New Student Admission</h2>
+          <ul class="step-indicator">
+            <li class="active"><span>1</span> Personal Details</li>
+            <li><span>2</span> Guardian Info</li>
+            <li><span>3</span> Review & Submit</li>
+          </ul>
+          <div class="step-content">
+            <div class="step active">
+              <h3>Step 1: Personal Details</h3>
+              <div class="form-group"><label for="first-name">First Name</label><input type="text" id="first-name" placeholder="Enter first name"></div>
+              <div class="form-group"><label for="last-name">Last Name</label><input type="text" id="last-name" placeholder="Enter last name"></div>
+            </div>
+            <div class="step">
+              <h3>Step 2: Guardian Information</h3>
+              <div class="form-group"><label for="guardian-name">Guardian Name</label><input type="text" id="guardian-name" placeholder="Enter guardian's full name"></div>
+              <div class="form-group"><label for="guardian-phone">Guardian Phone</label><input type="tel" id="guardian-phone" placeholder="Enter phone number"></div>
+            </div>
+            <div class="step">
+              <h3>Step 3: Review and Submit</h3><p>Please review all details before submitting.</p>
+            </div>
+          </div>
+          <div class="step-navigation">
+            <button id="prev-btn" disabled>Previous</button>
+            <button id="next-btn">Next</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- SETTINGS PANEL -->
+  <div class="settings-panel" id="settings-panel">
+    <div class="settings-header">
+      <h3>Settings</h3>
+      <button id="settings-close-btn" class="close-btn" aria-label="Close settings">&times;</button>
+    </div>
+    <div class="settings-item theme-toggle">
+      <strong>Theme</strong>
+      <button id="theme-toggle-btn">Switch to Dark</button>
+    </div>
+    <div class="settings-item">
+      <strong>Language</strong>
+      <span>English</span>
+    </div>
+    <div class="settings-item">
+      <strong>Notifications</strong>
+      <span>Enabled</span>
+    </div>
+  </div>
+
+  <!-- ADMISSION SUCCESS POPUP -->
+  <div class="popup-overlay" id="admission-popup" style="display: none;">
+    <div class="popup-content">
+      <h2>Success!</h2>
+      <p>Your admission is succesfully completed.</p>
+      <button id="popup-close-btn">Close</button>
+    </div>
+  </div>
+
+  <!-- YOUR JAVASCRIPT FILE -->
+  <script src="script.js"></script>
+</body>
+</html>

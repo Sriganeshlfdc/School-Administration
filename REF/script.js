@@ -23,12 +23,8 @@ const themeToggleBtn = document.getElementById('theme-toggle-btn');
 const fullscreenBtn = document.getElementById('fullscreen-btn');
 const fullscreenIcon = fullscreenBtn.querySelector('i');
 
-// --- CHANGED ---
-// Updated to match your new home.html IDs
-const navDashboard = document.querySelector('.main-item[data-menu="dashboard"]');
-const navAddStudent = document.getElementById('addstudent'); // Was 'nav-admissions'
-// --- END CHANGED ---
-
+const navQuickStats = document.getElementById('nav-quick-stats');
+const navAdmissions = document.getElementById('nav-admissions');
 const dashboardModule = document.getElementById('dashboard-module');
 const admissionModule = document.getElementById('admission-module');
 
@@ -50,7 +46,7 @@ function handleToggleSidebar() {
     menuIcon.classList.replace('fa-xmark', 'fa-bars');
   } else {
     sidebar.classList.add('collapsed');
-    menuIcon.classList.replace('fa-bars', 'fa-bars');
+    menuIcon.classList.replace('fa-bars', 'fa-xmark');
     // Close all sub-menus when collapsing
     closeAllSubMenus();
     openMenu = null;
@@ -85,22 +81,10 @@ function closeAllSubMenus() {
   document.querySelectorAll('.main-item .rotate').forEach(c => c.classList.remove('rotate'));
 }
 
-// --- CHANGED ---
-// Updated function to be safer
 function handleAccordionClick(item) {
   const menuName = item.dataset.menu;
   const subMenu = item.nextElementSibling;
   const chevron = item.querySelector('.fa-chevron-down');
-
-  // --- NEW SAFETY CHECK ---
-  // If this item has no sub-menu (like Dashboard), just return.
-  // Its navigation is handled by a separate event listener.
-  if (!subMenu || !subMenu.classList.contains('sub-menu')) {
-    closeAllSubMenus(); // Close other menus
-    openMenu = null;
-    return;
-  }
-  // --- END NEW CHECK ---
 
   if (!isSidebarOpen) {
     // If sidebar is collapsed, open it first
@@ -118,14 +102,10 @@ function handleAccordionClick(item) {
   } else {
     // 3. Otherwise, open this new menu
     subMenu.classList.add('show');
-    // Only rotate chevron if it exists
-    if (chevron) {
-      chevron.classList.add('rotate');
-    }
+    chevron.classList.add('rotate');
     openMenu = menuName;
   }
 }
-// --- END CHANGED ---
 
 function handleFullscreen() {
   if (!document.fullscreenElement) {
@@ -182,22 +162,14 @@ settingsCloseBtn.addEventListener('click', handleToggleSettings);
 themeToggleBtn.addEventListener('click', handleToggleTheme);
 fullscreenBtn.addEventListener('click', handleFullscreen);
 
-// --- CHANGED ---
-// Updated listeners to match new cached elements
-navDashboard.addEventListener('click', (e) => {
+navQuickStats.addEventListener('click', (e) => {
   e.preventDefault();
   handleNavigate('dashboard');
 });
-
-navAddStudent.addEventListener('click', (e) => {
+navAdmissions.addEventListener('click', (e) => {
   e.preventDefault();
   handleNavigate('admissions');
-  // Optional: close sidebar on mobile
-  if (window.innerWidth <= 768) {
-    handleToggleSidebar(); // Or overlay.click() if you re-add it
-  }
 });
-// --- END CHANGED ---
 
 mainItems.forEach(item => {
   item.addEventListener('click', () => handleAccordionClick(item));
@@ -244,26 +216,14 @@ function initializeMobileOverlay() {
   menuToggle.addEventListener('click', () => {
     // This click is for mobile only
     if (window.innerWidth <= 768) {
-      // Logic for mobile sidebar toggle
-      isSidebarOpen = !isSidebarOpen;
-      sidebar.classList.toggle('collapsed'); // This will be handled by @media rules
       overlay.classList.toggle('active');
     }
   });
   
   overlay.addEventListener('click', () => {
     // Close sidebar when overlay is clicked
-    isSidebarOpen = false;
-    sidebar.classList.add('collapsed');
+    handleToggleSidebar();
     overlay.classList.remove('active');
-  });
-  
-  // Re-write the desktop toggle logic to NOT trigger mobile
-  const desktopMenuToggle = document.getElementById('menu-toggle');
-  desktopMenuToggle.addEventListener('click', () => {
-    if (window.innerWidth > 768) {
-      handleToggleSidebar();
-    }
   });
 }
 

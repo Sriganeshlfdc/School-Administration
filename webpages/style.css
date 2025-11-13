@@ -9,9 +9,10 @@
  * 5. LAYOUT & CONTENT AREA
  * 6. SIDEBAR
  * 7. DASHBOARD CARDS
- * 8. WIZARD MODULE
+ * 8. WIZARD MODULE (NOW INCLUDES ALL FORM STYLES)
  * 9. SETTINGS & POPUP MODALS
- * 10. RESPONSIVE & MOBILE
+ * 10. STUDENT LIST & PROFILE MODULES
+ * 11. RESPONSIVE & MOBILE
  * ===================================
 */
 
@@ -34,6 +35,8 @@
   --disabled-text: #aaa;
   --success-color: #00b374;
   --success-bg: #e6f7ee;
+  --danger-color: #e53935;
+  --danger-bg: #ffebee;
 }
 
 .dark-theme {
@@ -54,6 +57,8 @@
   --disabled-text: #777;
   --success-color: var(--primary-color);
   --success-bg: var(--primary-color-light);
+  --danger-color: #ff5252;
+  --danger-bg: #4a3a3a;
 }
 
 /* ---------- 2. RESET & GLOBAL STYLES ---------- */
@@ -66,7 +71,7 @@
   color: var(--text-color);
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: auto;
   overflow: hidden;
   transition: background-color 0.3s ease;
   font-family: 'Inter', sans-serif;
@@ -76,6 +81,7 @@ button {
   font: inherit; cursor: pointer;
 }
 a { text-decoration: none; color: inherit; }
+form { width: 100%; }
 
 /* Hide scrollbars but allow scrolling */
 .content, .sidebar ul {
@@ -85,6 +91,15 @@ a { text-decoration: none; color: inherit; }
 .content::-webkit-scrollbar,
 .sidebar ul::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+/* ---
+ * THE FIX: Hide all modules by default.
+ * JS will show the active one.
+ * --- */
+.app-module {
+  display: none;
+  animation: dropdown 0.5s ease;
 }
 
 /* ---------- 3. GLOBAL BUTTON STYLES ---------- */
@@ -128,6 +143,12 @@ a { text-decoration: none; color: inherit; }
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  border-color: transparent;
+}
+
+.btn.btn-small {
+    padding: 6px 12px;
+    font-size: 0.9rem;
 }
 
 /* ---------- 4. NAVBAR ---------- */
@@ -171,6 +192,7 @@ a { text-decoration: none; color: inherit; }
   overflow-y: auto;
   margin-left: 260px; /* Default sidebar width */
   transition: margin-left 0.3s ease;
+  height: calc(100vh - 64px); /* Fixes scrolling */
 }
 .content.collapsed {
   margin-left: 80px; /* Collapsed sidebar width */
@@ -210,7 +232,7 @@ a { text-decoration: none; color: inherit; }
   overflow-y: auto;
 }
 .sidebar li {
-  position: relative; /* For flyout menu */
+  position: relative;
 }
 .sidebar .main-item {
   display: flex;
@@ -282,6 +304,11 @@ a { text-decoration: none; color: inherit; }
   background: var(--secondary-bg);
   color: var(--text-color);
 }
+.sidebar .sub-menu li a.active {
+  background: var(--secondary-bg-hover);
+  color: var(--text-color);
+  font-weight: 600;
+}
 .sidebar .sub-menu li a::before {
   content: "";
   width: 4px;
@@ -309,7 +336,7 @@ a { text-decoration: none; color: inherit; }
 .sidebar.collapsed li:hover .sub-menu {
   display: grid;
   position: absolute;
-  left: 72px; /* 80px width - 8px padding */
+  left: 72px;
   top: 0;
   width: 220px;
   background: var(--sidebar-bg);
@@ -369,20 +396,33 @@ a { text-decoration: none; color: inherit; }
   font-weight: 600;
 }
 
-/* ---------- 8. WIZARD MODULE ---------- */
-.wizard-container {
+/* ---------- 8. WIZARD MODULE & FORM STYLES ---------- */
+/* Reusable container for wizard, list, and profile */
+.wizard-container,
+.list-container,
+.profile-container {
   background: var(--card-bg);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   box-shadow: 0 2px 4px var(--shadow-color);
   padding: 32px;
   margin-top: 20px;
+}
+.wizard-container {
   max-width: 700px;
   margin: 20px auto;
 }
+.list-container,
+.profile-container {
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
 .wizard-container h2 {
   text-align: center; margin-bottom: 32px; color: var(--text-color);
 }
+
+/* --- Step Indicator --- */
 .step-indicator {
   display: flex; justify-content: space-between;
   list-style: none; margin-bottom: 32px;
@@ -398,14 +438,29 @@ a { text-decoration: none; color: inherit; }
   background: var(--border-color);
   z-index: 1;
 }
+/* Progress bar */
+.step-indicator::after {
+  content: '';
+  position: absolute;
+  top: 19px;
+  left: 0;
+  height: 2px;
+  background: var(--primary-color);
+  z-index: 1;
+  width: 0; /* JS will update this */
+  transition: width 0.3s ease;
+}
 .step-indicator li {
   display: flex; flex-direction: column; align-items: center;
   color: var(--text-color-light); flex: 1; position: relative;
   z-index: 2;
   font-weight: 500;
   font-size: 0.9rem;
+  text-align: center;
 }
 .step-indicator li.active { color: var(--primary-color); font-weight: 600; }
+.step-indicator li.completed { color: var(--success-color); font-weight: 600; }
+
 .step-indicator li span {
   height: 38px; width: 38px; border-radius: 50%;
   background: var(--card-bg);
@@ -421,30 +476,299 @@ a { text-decoration: none; color: inherit; }
   transform: scale(1.05);
   box-shadow: 0 0 10px var(--primary-color-light);
 }
+.step-indicator li.completed span {
+  background: var(--success-bg);
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+/* Add checkmark for completed steps */
+.step-indicator li.completed span::before {
+  content: '\f00c'; /* Font Awesome check */
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+/* --- Step Content --- */
 .step { display: none; animation: dropdown 0.5s ease; }
 .step.active { display: block; }
 .step h3 {
   margin-bottom: 24px; border-bottom: 1px solid var(--border-color);
   padding-bottom: 8px; font-weight: 600;
 }
+
+/* --- Base Form Group Styles --- */
 .form-group { margin-bottom: 20px; }
 .form-group label {
   display: block; margin-bottom: 8px; font-weight: 500;
 }
-.form-group input {
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group input[type="search"] {
   width: 100%; padding: 12px 16px; border: 1px solid var(--border-color);
   border-radius: 8px; font-size: 1rem;
   background: var(--bg-color); color: var(--text-color);
   transition: all 0.2s ease;
 }
-.form-group input:focus {
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group input[type="date"]:focus,
+.form-group input[type="search"]:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px var(--primary-color-light);
   outline: none;
 }
-.step-navigation {
-  display: flex; justify-content: space-between; margin-top: 32px;
+
+/* --- Select & Textarea Styles --- */
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  appearance: none; /* For custom select arrow */
+  -webkit-appearance: none;
 }
+/* Custom arrow for select */
+.form-group:has(select) {
+  position: relative;
+}
+.form-group:has(select)::after {
+  content: '\f078'; /* fa-chevron-down */
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  position: absolute;
+  top: 45px;
+  right: 16px;
+  color: var(--text-color-light);
+  pointer-events: none;
+}
+
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-color-light);
+  outline: none;
+}
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* --- Fieldset & Sub-Headings --- */
+.step fieldset {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.step legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  padding: 0 10px;
+  margin-left: 10px;
+}
+.step hr,
+.profile-section hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 24px 0;
+}
+
+/* --- Custom File Input Button --- */
+.form-group input[type="file"] {
+  display: none;
+}
+.form-group label[for^="doc-"] {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--secondary-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.form-group label[for^="doc-"]:hover {
+  background: var(--secondary-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color-hover);
+}
+.form-group label[for^="doc-"]::before {
+  content: '\f093'; /* Font Awesome Upload Icon */
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  margin-right: 8px;
+  color: var(--primary-color); /* Match other icons */
+}
+.file-name {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-color-light);
+  font-style: italic;
+}
+/* Icon for selected file name */
+.file-name::before {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  content: '\f15c'; /* fa-file */
+  margin-right: 8px;
+  color: var(--text-color-light);
+}
+.file-name:empty {
+  display: none; /* Hide if no file is selected */
+}
+
+
+/* --- Custom Checkbox --- */
+.step .form-group:has(#certify) {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  background: var(--secondary-bg);
+  padding: 16px;
+  border-radius: 8px;
+}
+.step .form-group:has(#certify) label {
+  display: inline;
+  margin-bottom: 0;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  color: var(--text-color);
+}
+.form-group input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--card-bg); /* Use card-bg for contrast */
+  cursor: pointer;
+  margin-right: 12px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.form-group input[type="checkbox"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-color-light);
+  outline: none;
+}
+.form-group input[type="checkbox"]:checked {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.form-group input[type="checkbox"]::after {
+  content: '\f00c'; /* Font Awesome check icon */
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  font-size: 12px;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+.form-group input[type="checkbox"]:checked::after {
+  opacity: 1;
+}
+
+/* --- Form Validation & Field Icons (Effective) --- */
+/* Red asterisk for required labels */
+.form-group label.required::after {
+  content: ' *';
+  color: var(--danger-color);
+  font-weight: 600;
+  margin-left: 2px;
+}
+/* Invalid field styles */
+.form-group input:invalid:not(:placeholder-shown):not(:focus),
+.form-group textarea:invalid:not(:placeholder-shown):not(:focus),
+.form-group select:invalid:not(:focus) {
+  border-color: var(--danger-color);
+  background-color: var(--danger-bg);
+}
+.form-group input:invalid:focus,
+.form-group textarea:invalid:focus,
+.form-group select:invalid:focus {
+  border-color: var(--danger-color);
+  box-shadow: 0 0 0 3px var(--danger-bg);
+}
+/* Valid field styles (optional) */
+.form-group input:valid:not(:placeholder-shown),
+.form-group textarea:valid:not(:placeholder-shown),
+.form-group select:valid {
+    border-color: var(--success-color);
+}
+
+/* Icons for labels */
+.form-group label::before {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  margin-right: 10px;
+  width: 16px;
+  display: inline-block;
+  text-align: center;
+  color: var(--primary-color);
+  opacity: 0.7;
+}
+/* Reset for special labels */
+label[for^="doc-"]::before {
+  opacity: 1; /* Already styled */
+}
+label[for="certify"]::before {
+  display: none; /* No icon for checkbox */
+}
+/* Student */
+label[for="first-name"]::before,
+label[for="middle-name"]::before,
+label[for="last-name"]::before { content: '\f007'; }
+label[for="dob"]::before { content: '\f133'; }
+label[for="address"]::before { content: '\f3c5'; }
+/* Academic */
+label[for="applying-grade"]::before { content: '\f51e'; }
+label[for="prev-school"]::before,
+label[for="prev-school-addr"]::before { content: '\f549'; }
+/* Guardian/Emergency */
+label[for="g1-name"]::before,
+label[for="g2-name"]::before,
+label[for="ec-name"]::before { content: '\f007'; }
+label[for="g1-relation"]::before,
+label[for="g2-relation"]::before,
+label[for="ec-relation"]::before { content: '\f0c0'; }
+label[for="g1-email"]::before { content: '\f0e0'; }
+label[for="g1-phone"]::before,
+label[for="g2-phone"]::before,
+label[for="ec-phone"]::before { content: '\f095'; }
+/* Medical */
+label[for="allergies"]::before { content: '\f7e6'; }
+label[for="conditions"]::before { content: '\f479'; }
+
+
+/* --- Step Navigation --- */
+.step-navigation {
+  display: flex; justify-content: space-between; 
+  margin-top: 32px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 24px;
+}
+
 
 /* ---------- 9. SETTINGS & POPUP MODALS ---------- */
 .settings-panel {
@@ -534,7 +858,216 @@ a { text-decoration: none; color: inherit; }
 .popup-content p { margin-bottom: 24px; color: var(--text-color-light); }
 .popup-content .btn { width: 100%; }
 
-/* ---------- 10. RESPONSIVE & MOBILE ---------- */
+/* ---------- 10. STUDENT LIST & PROFILE MODULES ---------- */
+
+/* --- Student List (Filter Page) --- */
+.list-container h2 {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.filter-bar #student-filter-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  align-items: flex-end; /* Aligns buttons with form fields */
+}
+.filter-bar .form-group {
+  margin-bottom: 0; /* Remove default margin */
+}
+.filter-bar .form-group.search-group {
+  grid-column: 1 / -1; /* Full width */
+}
+.filter-bar .form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.filter-bar .form-actions .btn {
+  flex-grow: 1;
+}
+
+/* Responsive grid for search + filters */
+@media (min-width: 768px) {
+  .filter-bar .form-group.search-group {
+    grid-column: 1 / span 2;
+  }
+}
+@media (min-width: 1200px) {
+  .filter-bar .form-group.search-group {
+    grid-column: 1 / span 3;
+  }
+  .filter-bar .form-actions {
+    grid-column: -2 / -1;
+  }
+}
+
+.list-container hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 32px 0;
+}
+
+.results-section {
+  overflow-x: auto; /* For table responsiveness */
+}
+.results-section h3 {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.student-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap; /* Prevents line breaks */
+}
+.student-list-table th,
+.student-list-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+.student-list-table thead {
+  background: var(--secondary-bg);
+}
+.student-list-table th {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color-light);
+  text-transform: uppercase;
+}
+.student-list-table tbody tr:hover {
+  background: var(--secondary-bg-hover);
+}
+.student-list-table td {
+  font-size: 0.95rem;
+}
+.student-list-table .no-results td {
+  text-align: center;
+  padding: 40px;
+  font-size: 1rem;
+  color: var(--text-color-light);
+  font-style: italic;
+}
+.student-list-table .view-profile-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+
+/* --- Student Profile (View Page) --- */
+.profile-container h2 {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+.profile-section {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+.profile-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.profile-section h3,
+.profile-section h4 {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+.profile-section h4 {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+.detail-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color-light);
+}
+.detail-value {
+  font-weight: 500;
+  color: var(--text-color);
+}
+/* Use this for long-form text like medical notes */
+.detail-block {
+    margin-bottom: 16px;
+}
+.detail-block .detail-label {
+    margin-bottom: 8px;
+}
+.detail-block .detail-text {
+  background: var(--bg-color);
+  padding: 16px;
+  border-radius: 8px;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.document-list {
+  list-style: none;
+  padding: 0;
+}
+.document-list li {
+  margin-bottom: 12px;
+}
+.document-list a {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.document-list a:hover {
+  background: var(--secondary-bg-hover);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+.document-list a::before {
+  content: '\f15b'; /* fa-file-arrow-down */
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Solid';
+  font-weight: 900;
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.profile-navigation {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 24px;
+}
+
+/* Responsive layout for profile details */
+@media (min-width: 600px) {
+  .detail-pair {
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+  }
+  .detail-label {
+    font-size: 1rem;
+  }
+}
+
+
+/* ---------- 11. RESPONSIVE & MOBILE ---------- */
 .overlay {
   display: none;
   position: fixed;
@@ -553,6 +1086,7 @@ a { text-decoration: none; color: inherit; }
   .content {
     margin-left: 0; /* Full width */
     padding: 16px; /* Less padding */
+    height: calc(100vh - 60px); /* Match mobile navbar */
   }
   .content.collapsed {
     margin-left: 0;
@@ -570,6 +1104,7 @@ a { text-decoration: none; color: inherit; }
     z-index: 1001;
     border-right: none;
     box-shadow: 4px 0 15px var(--shadow-color-hover);
+    top: 60px; height: calc(100vh - 60px); /* Match mobile navbar */
   }
   .sidebar.open {
     transform: translateX(0);
@@ -586,15 +1121,68 @@ a { text-decoration: none; color: inherit; }
   
   .navbar { padding: 0 16px; height: 60px; } /* Adjust mobile navbar */
   .layout { margin-top: 60px; } /* Match mobile navbar */
-  .sidebar { top: 60px; height: calc(100vh - 60px); } /* Match mobile navbar */
 
   .navbar .center h1 { font-size: 18px; }
   .navbar .left, .navbar .right { gap: 8px; }
 
-  .wizard-container {
-    padding: 24px;
+  .wizard-container,
+  .list-container,
+  .profile-container {
+    padding: 16px;
+    margin-top: 16px;
   }
-  .step-indicator li { font-size: 0.9rem; }
+  
+  .wizard-container h2,
+  .list-container h2,
+  .profile-container h2 {
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+  }
+  
+  .step-indicator {
+    flex-wrap: wrap; /* Allow steps to wrap */
+  }
+  .step-indicator li { 
+    font-size: 0.8rem; 
+    flex-basis: 33%; /* 3 per row */
+    margin-bottom: 10px;
+  }
   .step-indicator li span { height: 32px; width: 32px; }
-  .step-indicator::before { top: 15px; }
+  .step-indicator::before,
+  .step-indicator::after { top: 15px; }
+  
+  .step-navigation {
+    flex-direction: column-reverse; /* Stack buttons */
+    gap: 10px;
+  }
+  .step-navigation .btn {
+    width: 100%; /* Full width buttons */
+  }
+  
+  /* --- ADDED: Mobile Filter/Profile Styles --- */
+  .filter-bar #student-filter-form {
+      grid-template-columns: 1fr; /* Stack all filters */
+      gap: 16px;
+  }
+  .filter-bar .form-actions {
+      flex-direction: column;
+  }
+  .filter-bar .form-actions .btn {
+      width: 100%;
+  }
+
+  .detail-pair {
+      grid-template-columns: 1fr; /* Stack profile details */
+      gap: 2px;
+  }
+  .profile-navigation {
+      flex-direction: column;
+  }
+  .profile-navigation .btn {
+      width: 100%;
+  }
+}
+.app-module {
+  display: none;
+  animation: dropdown 0.5s ease;
 }

@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Montfort School Dashboard</title>
   
+  <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
+  <!-- NEW: Google Font 'Inter' -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- YOUR CSS FILE -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -36,13 +39,13 @@
     <div class="sidebar" id="sidebar">
       <ul>
         <li>
-          <button class="main-item" data-menu="dashboard">
-            <span><i class="fa fa-home"></i>Dashboard</span>
-          </button>
+          <a href="home.html"><button class="main-item" data-menu="dashboard">
+            <span><i class="fa fa-home"></i><a href="home.html">Dashboard</a></span>
+          </button></li></ul></a>
         </li>
         <li>
           <button class="main-item" data-menu="student">
-            <span><i class="fa fa-users"></i>Student Management</span>
+            <span><i class="fa fa-users"></i><a href="studentmanagement.html">Student Management</span>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="addstudent">Add Student</a></li>
@@ -223,173 +226,221 @@
           <div class="card"><i class="fa fa-hand-holding-heart"></i><h3>Charity</h3><p>200 people</p></div>
         </div>
       </div>
-      
-      <!-- Admission Wizard Module -->
-      <div id="admission-module">
-  <div class="wizard-container">
-    <h2>New Student Admission</h2>
-    
-    <ul class="step-indicator">
-      <li class="active"><span>1</span> Student Details</li>
-      <li><span>2</span> Academic Info</li>
-      <li><span>3</span> Guardian Info</li>
-      <li><span>4</span> Medical & Emergency</li>
-      <li><span>5</span> Upload & Review</li>
-    </ul>
-
-    <div class="step-content">
-
-      <div class="step active">
-        <h3>Step 1: Student's Personal Details</h3>
-        <div class="form-group"><label for="first-name">First Name</label><input type="text" id="first-name"></div>
-        <div class="form-group"><label for="middle-name">Middle Name</label><input type="text" id="middle-name"></div>
-        <div class="form-group"><label for="last-name">Last Name</label><input type="text" id="last-name"></div>
-        <div class="form-group"><label for="dob">Date of Birth</label><input type="date" id="dob"></div>
-        <div class="form-group"><label for="address">Home Address</label><input type="text" id="address" placeholder="Street, City, Postal Code"></div>
-      </div>
-
-      <div class="step">
-        <h3>Step 2: Academic Information</h3>
-        <div class="form-group">
-          <label for="applying-grade">Applying for Grade/Program</label>
-          <select id="applying-grade">
-            <option value="">Select...</option>
-            <option value="grade-9">Grade 9</option>
-            <option value="grade-10">Grade 10</option>
-            <option value="grade-11">Grade 11</option>
-          </select>
-        </div>
-        <div class="form-group"><label for="prev-school">Previous School Name</label><input type="text" id="prev-school"></div>
-        <div class="form-group"><label for="prev-school-addr">Previous School Address</label><input type="text" id="prev-school-addr"></div>
-      </div>
-
-      <div class="step">
-        <h3>Step 3: Parent/Guardian Information</h3>
-        <h4>Guardian 1 (Primary Contact)</h4>
-        <div class="form-group"><label for="g1-name">Full Name</label><input type="text" id="g1-name"></div>
-        <div class="form-group"><label for="g1-relation">Relationship</label><input type="text" id="g1-relation" placeholder="e.g., Mother, Father"></div>
-        <div class="form-group"><label for="g1-email">Email Address</label><input type="email" id="g1-email"></div>
-        <div class="form-group"><label for="g1-phone">Mobile Phone</label><input type="tel" id="g1-phone"></div>
-        <hr>
-        <h4>Guardian 2</h4>
-        <div class="form-group"><label for="g2-name">Full Name</label><input type="text" id="g2-name"></div>
-        <div class="form-group"><label for="g2-relation">Relationship</label><input type="text" id="g2-relation"></div>
-        <div class="form-group"><label for="g2-phone">Mobile Phone</label><input type="tel" id="g2-phone"></div>
-      </div>
-
-      <div class="step">
-        <h3>Step 4: Medical & Emergency Contacts</h3>
-        <h4>Emergency Contact (Not Guardian 1 or 2)</h4>
-        <div class="form-group"><label for="ec-name">Full Name</label><input type="text" id="ec-name"></div>
-        <div class="form-group"><label for="ec-phone">Phone Number</label><input type="tel" id="ec-phone"></div>
-        <div class="form-group"><label for="ec-relation">Relationship</C> <input type="text" id="ec-relation" placeholder="e.g., Aunt, Grandparent"></div>
-        <hr>
-        <h4>Medical Details</h4>
-        <div class="form-group"><label for="allergies">Allergies (List "None" if none)</label><textarea id="allergies"></textarea></div>
-        <div class="form-group"><label for="conditions">Medical Conditions (List "None" if none)</label><textarea id="conditions"></textarea></div>
-      </div>
-
-      <div class="step">
-        <h3>Step 5: Document Upload & Review</h3>
-        <p>Please upload the following documents and review all details before submitting.</p>
-        <div class="form-group"><label for="doc-birth-cert">Copy of Birth Certificate</label><input type="file" id="doc-birth-cert"></div>
-        <div class="form-group"><label for="doc-reports">Previous Report Cards</label><input type="file" id="doc-reports"></div>
-        <div class="form-group"><label for="doc-immunization">Immunization Records</label><input type="file" id="doc-immunization"></div>
-        <hr>
-        <div class="form-group">
-          <input type="checkbox" id="certify">
-          <label for="certify">I certify that all information provided is true and accurate.</label>
-        </div>
-      </div>
-
+  <!-- SETTINGS PANEL -->
+  <div class="settings-panel" id="settings-panel">
+    <div class="settings-header">
+      <h3>Settings</h3>
+      <button id="settings-close-btn" class="close-btn" aria-label="Close settings">&times;</button>
     </div>
-
-    <div class="step-navigation">
-      <button id="prev-btn" class="btn btn-secondary">Previous</button>
-      <button id="next-btn" class="btn btn-primary">Next</button>
-      </div>
+    <div class="settings-item theme-toggle">
+      <strong>Theme</strong>
+      <button id="theme-toggle-btn" class="btn btn-secondary">Switch to Dark</button>
+    </div>
+    <div class="settings-item">
+      <strong>Language</strong>
+      <span>English</span>
+    </div>
+    <div class="settings-item">
+      <strong>Notifications</strong>
+      <span>Enabled</span>
+    </div>
   </div>
-</div>
-      <div id="viewstudent">
-  <div class="wizard-container">
-    <h2>Student Directory</h2>
-    
-    <div class="filter-bar">
-      <form id="student-filter-form">
-        
-        <div class="form-group search-group">
-          <label for="student-search">Search Students</label>
-          <input type="search" id="student-search" placeholder="Search by name, ID...">
-        </div>
-        
-        <div class="form-group filter-group">
-          <label for="filter-class">Class/Grade</label>
-          <select id="filter-class">
-            <option value="">All Classes</option>
-            <option value="grade-9">Grade 9</option>
-            <option value="grade-10">Grade 10</option>
-            <option value="grade-11">Grade 11</option>
-            <option value="grade-12">Grade 12</option>
-          </select>
-        </div>
-        
-        <div class="form-group filter-group">
-          <label for="filter-year">Academic Year</label>
-          <select id="filter-year">
-            <option value="">All Years</option>
-            <option value="2025-2026">2025-2026</option>
-            <option value="2024-2025">2024-2025</option>
-            <option value="2023-2024">2023-2024</option>
-          </select>
-        </div>
-        
-        <div class="form-group filter-group">
-          <label for="filter-term">Term</label>
-          <select id="filter-term">
-            <option value="">All Terms</option>
-            <option value="fall">Fall</option>
-            <option value="spring">Spring</option>
-            <option value="summer">Summer</option>
-          </select>
-        </div>
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
 
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Apply Filters</button>
-          <button type="reset" class="btn btn-secondary">Clear</button>
-        </div>
-
-      </form>
-    </div>
-    
-    <hr>
-
-    <div class="results-section">
-      <h3>Student List</h3>
-      <table class="student-list-table">
-        <thead>
-          <tr>
-            <th>Student ID</th>
-            <th>Full Name</th>
-            <th>Grade</th>
-            <th>Academic Year</th>
-            <th>Primary Contact</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="6" class="no-results">
-              Please apply filters or search to display student data.
-            </td>
-          </tr>
+      <!-- 2. ADD STUDENT MODULE (Your existing wizard) -->
+      <!-- This ID matches the 'addstudent' link -->
+      <div id="admission-module" class="module" style="display: none;">
+        <div class="wizard-container">
+          <h2>New Student Admission</h2>
+          <ul class="step-indicator">
+            <li class="active"><span>1</span> Student Details</li>
+            <li><span>2</span> Academic Info</li>
+            <li><span>3</span> Guardian Info</li>
+            <li><span>4</span> Medical & Emergency</li>
+            <li><span>5</span> Upload & Review</li>
+          </ul>
           
-          </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-    </div>
-  </div>
+          <form id="admission-form">
+            <div class="step-content">
+              <!-- Step 1: Personal Details -->
+              <div class="step active">
+                <h3>Step 1: Student's Personal Details</h3>
+                <div class="form-group"><label for="first-name" class="required">First Name</label><input type="text" id="first-name" autocomplete="given-name" required></div>
+                <div class="form-group"><label for="middle-name">Middle Name</label><input type="text" id="middle-name" autocomplete="additional-name"></div>
+                <div class="form-group"><label for="last-name" class="required">Last Name</label><input type="text" id="last-name" autocomplete="family-name" required></div>
+                <div class="form-group"><label for="dob" class="required">Date of Birth</label><input type="date" id="dob" required></div>
+                <div class="form-group"><label for="address" class="required">Home Address</label><input type="text" id="address" placeholder="Street, City, Postal Code" autocomplete="street-address" required></div>
+              </div>
+              <!-- Step 2: Academic Information -->
+              <div class="step">
+                <h3>Step 2: Academic Information</h3>
+                <div class="form-group">
+                  <label for="applying-grade" class="required">Applying for Grade/Program</label>
+                  <select id="applying-grade" required>
+                    <option value="">Select...</option>
+                    <option value="grade-9">Grade 9</option>
+                    <option value="grade-10">Grade 10</option>
+                    <option value="grade-11">Grade 11</option>
+                  </select>
+                </div>
+                <div class="form-group"><label for="prev-school" class="required">Previous School Name</label><input type="text" id="prev-school" required></div>
+                <div class="form-group"><label for="prev-school-addr">Previous School Address</label><input type="text" id="prev-school-addr"></div>
+              </div>
+              <!-- Step 3: Guardian Information -->
+              <div class="step">
+                <h3>Step 3: Parent/Guardian Information</h3>
+                <fieldset>
+                  <legend>Guardian 1 (Primary Contact)</legend>
+                  <div class="form-group"><label for="g1-name" class="required">Full Name</label><input type="text" id="g1-name" autocomplete="name" required></div>
+                  <div class="form-group"><label for="g1-relation" class="required">Relationship</label><input type="text" id="g1-relation" placeholder="e.g., Mother, Father" required></div>
+                  <div class="form-group"><label for="g1-email" class="required">Email Address</label><input type="email" id="g1-email" placeholder="example@email.com" autocomplete="email" required></div>
+                  <div class="form-group"><label for="g1-phone" class="required">Mobile Phone</label><input type="tel" id="g1-phone" placeholder="10-digit number" autocomplete="tel" required></div>
+                </fieldset>
+                <fieldset>
+                  <legend>Guardian 2</legend>
+                  <div class="form-group"><label for="g2-name">Full Name</label><input type="text" id="g2-name" autocomplete="name"></div>
+                  <div class="form-group"><label for="g2-relation">Relationship</label><input type="text" id="g2-relation"></div>
+                  <div class="form-group"><label for="g2-phone">Mobile Phone</label><input type="tel" id="g2-phone" autocomplete="tel"></div>
+                </fieldset>
+              </div>
+              <!-- Step 4: Medical & Emergency -->
+              <div class="step">
+                <h3>Step 4: Medical & Emergency</h3>
+                <fieldset>
+                  <legend>Emergency Contact (Not Guardian 1 or 2)</legend>
+                  <div class="form-group"><label for="ec-name" class="required">Full Name</label><input type="text" id="ec-name" required></div>
+                  <div class="form-group"><label for="ec-phone" class="required">Phone Number</label><input type="tel" id="ec-phone" required></div>
+                  <div class="form-group"><label for="ec-relation" class="required">Relationship</label><input type="text" id="ec-relation" placeholder="e.g., Aunt, Grandparent" required></div>
+                </fieldset>
+                <fieldset>
+                  <legend>Medical Details</legend>
+                  <div class="form-group"><label for="allergies" class="required">Allergies (List "None" if none)</label><textarea id="allergies" required></textarea></div>
+                  <div class="form-group"><label for="conditions" class="required">Medical Conditions (List "None" if none)</label><textarea id="conditions" required></textarea></div>
+                </fieldset>
+              </div>
+              <!-- Step 5: Upload & Review -->
+              <div class="step">
+                <h3>Step 5: Document Upload & Review</h3>
+                <p>Please upload the following documents and review all details before submitting.</p>
+                <div class="form-group"><label for="doc-birth-cert" class="required">Copy of Birth Certificate</label><input type="file" id="doc-birth-cert" accept="application/pdf, image/jpeg" required></div>
+                <div class="form-group"><label for="doc-reports" class="required">Previous Report Cards</label><input type="file" id="doc-reports" accept="application/pdf, image/jpeg" multiple required></div>
+                <div class="form-group"><label for="doc-immunization" class="required">Immunization Records</label><input type="file" id="doc-immunization" accept="application/pdf, image/jpeg" required></div>
+                <hr>
+                <div class="form-group">
+                  <input type="checkbox" id="certify" required>
+                  <label for="certify" class="required">I certify that all information provided is true and accurate.</label>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+          <div class="step-navigation">
+            <button id="prev-btn" class="btn btn-secondary">Previous</button>
+            <button id="next-btn" class="btn btn-primary">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =================================== -->
+      <!-- NEW PLACEHOLDER MODULES (PAGES) -->
+      <!-- =================================== -->
+
+      <!-- 3. VIEW STUDENTS MODULE -->
+      <div id="viewstudent-module" class="module" style="display: none;">
+        <h2>View All Students</h2>
+        <p class="subtitle">Search, filter, and view student details.</p>
+        <div class="card">
+          <h3>View Students Content</h3>
+          <p>This is the placeholder for the 'View Students' module. A table of students would go here.</p>
+        </div>
+      </div>
+      
+      <!-- 4. STUDENTS SUMMARY MODULE -->
+      <div id="summary-module" class="module" style="display: none;">
+        <h2>Students Summary</h2>
+        <p class="subtitle">Analytics and summary of the student body.</p>
+        <div class="card">
+          <h3>Students Summary Content</h3>
+          <p>This is the placeholder for the 'Students Summary' module. Charts and graphs would go here.</p>
+        </div>
+      </div>
+      
+      <!-- 5. MIGRATE STUDENTS MODULE -->
+      <div id="migrate-module" class="module" style="display: none;">
+        <h2>Migrate Students</h2>
+        <p class="subtitle">Tools for promoting students to the next grade.</p>
+        <div class="card">
+          <h3>Migrate Students Content</h3>
+          <p>This is the placeholder for the 'Migrate Students' module.</p>
+        </div>
+      </div>
+
+      <!-- 6. QUICK EDIT MODULE -->
+      <div id="quickedit-module" class="module" style="display: none;">
+        <h2>Quick Edit</h2>
+        <p class="subtitle">Quickly edit student information in a table.</p>
+        <div class="card">
+          <h3>Quick Edit Content</h3>
+          <p>This is the placeholder for the 'Quick Edit' module.</p>
+        </div>
+      </div>
+
+      <!-- 7. ACADEMIC EDITS MODULE -->
+      <div id="academicedit-module" class="module" style="display: none;">
+        <h2>Academic Edits</h2>
+        <p class="subtitle">Edit student academic records.</p>
+        <div class="card">
+          <h3>Academic Edits Content</h3>
+          <p>This is the placeholder for the 'Academic Edits' module.</p>
+        </div>
+      </div>
+
+      <!-- 8. SEARCH STUDENT MODULE -->
+      <div id="searchstudent-module" class="module" style="display: none;">
+        <h2>Search Student</h2>
+        <p class="subtitle">Find a specific student by ID, name, or phone number.</p>
+        <div class="card">
+          <h3>Search Student Content</h3>
+          <p>This is the placeholder for the 'Search Student' module. A large search bar would go here.</p>
+        </div>
+      </div>
+
+      <!-- 9. STUDENT ACCOUNTS MODULE -->
+      <div id="studentaccounts-module" class="module" style="display: none;">
+        <h2>Student Accounts</h2>
+        <p class="subtitle">Manage student login and portal accounts.</p>
+        <div class="card">
+          <h3>Student Accounts Content</h3>
+          <p>This is the placeholder for the 'Student Accounts' module.</p>
+        </div>
+      </div>
+
+      <!-- 10. OLD STUDENTS DEBTS MODULE -->
+      <div id="oldstudentdebt-module" class="module" style="display: none;">
+        <h2>Old Students Debts</h2>
+        <p class="subtitle">View outstanding debts from former students.</p>
+        <div class="card">
+          <h3>Old Students Debts Content</h3>
+          <p>This is the placeholder for the 'Old Students Debts' module.</p>
+        </div>
+      </div>
+
+      <!-- 11. OLD STUDENTS RECEIPTS MODULE -->
+      <div id="oldstudentrec-module" class="module" style="display: none;">
+        <h2>Old Students Receipts</h2>
+        <p class="subtitle">View past receipts from former students.</p>
+        <div class="card">
+          <h3>Old Students Receipts Content</h3>
+          <p>This is the placeholder for the 'Old Students Receipts' module.</p>
+        </div>
+      </div>
+
+    </div> <!-- End .content -->
+  </div> <!-- End .layout -->
+
+  <!-- MOBILE OVERLAY -->
+  <div class="overlay" id="overlay"></div>
 
   <!-- SETTINGS PANEL -->
   <div class="settings-panel" id="settings-panel">
@@ -417,14 +468,14 @@
       <div class="popup-icon"><i class="fa-solid fa-check"></i></div>
       <h2>Success!</h2>
       <p>The new student has been added successfully.</p>
-      <button id="popup-close-btn" class="btn btn-primary">Close</button>
+      <button id="popup-close-btn" class="btn btn-primary">Done</button>
     </div>
   </div>
 
-  <!-- Overlay for mobile sidebar -->
-  <div class="overlay" id="overlay"></div>
 
-  <!-- YOUR JAVASCRIPT FILE -->
+  <!-- =================================== -->
+  <!-- EMBEDDED JAVASCRIPT -->
+  <!-- =================================== -->
   <script src="script.js"></script>
 </body>
 </html>

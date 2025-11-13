@@ -872,6 +872,7 @@ label[for="conditions"]::before { content: '\f479'; }
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   align-items: flex-end; /* Aligns buttons with form fields */
+  margin-bottom: 10px;
 }
 .filter-bar .form-group {
   margin-bottom: 0; /* Remove default margin */
@@ -953,6 +954,21 @@ label[for="conditions"]::before { content: '\f479'; }
 .student-list-table .view-profile-btn {
     padding: 6px 12px;
     font-size: 0.9rem;
+}
+
+/* Add style for editable inputs inside the table (Quick Edit) */
+.quick-edit-table input[type="text"], 
+.quick-edit-table input[type="tel"], 
+.quick-edit-table select {
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    background: var(--bg-color);
+}
+.quick-edit-table input,
+.quick-edit-table select {
+    width: 100%;
 }
 
 
@@ -1186,3 +1202,6 @@ label[for="conditions"]::before { content: '\f479'; }
   display: none;
   animation: dropdown 0.5s ease;
 }
+.app-module.active {
+  display: block;
+} 

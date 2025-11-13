@@ -5,20 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Montfort School Dashboard</title>
   
-  <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
-  <!-- NEW: Google Font 'Inter' -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- YOUR CSS FILE -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="layout-wrapper light-theme">
-  <!-- NAVBAR -->
   <div class="navbar">
     <div class="left">
       <button id="menu-toggle" aria-label="Toggle menu"><i class="fa fa-bars"></i></button>
@@ -33,19 +29,17 @@
     </div>
   </div>
 
-  <!-- LAYOUT -->
   <div class="layout">
-    <!-- SIDEBAR (Refined & Corrected Structure) -->
     <div class="sidebar" id="sidebar">
       <ul>
         <li>
-          <a href="home.html"><button class="main-item" data-menu="dashboard">
-            <span><i class="fa fa-home"></i><a href="home.html">Dashboard</a></span>
-          </button></li></ul></a>
+          <button class="main-item" data-menu="dashboard">
+            <span><i class="fa fa-home"></i>Dashboard</span>
+          </button>
         </li>
         <li>
           <button class="main-item" data-menu="student">
-            <span><i class="fa fa-users"></i><a href="studentmanagement.html">Student Management</span>
+            <span><i class="fa fa-users"></i>Student Management</span>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="addstudent">Add Student</a></li>
@@ -205,10 +199,8 @@
       </ul>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="content" id="content">
     
-      <!-- Dashboard Welcome Module -->
       <div id="dashboard-module">
         <h2>Welcome, Administrator </h2>
         <p class="subtitle">Here are some quick stats and reports for Montfort School:</p>
@@ -218,7 +210,6 @@
           <div class="card"><i class="fa fa-bus"></i><h3>Transport Vehicles</h3><p>12 Operational</p></div>
           <div class="card"><i class="fa fa-book"></i><h3>Library Books</h3><p>8,500 Available</p></div>
         </div>
-        <!-- Added your new row of cards -->
         <div class="cards" style="margin-top: 24px;">
           <div class="card"><i class="fa fa-computer"></i><h3>Computers</h3><p>200 Available</p></div>
           <div class="card"><i class="fa fa-futbol"></i><h3>Sports</h3><p>Teams: 8</p></div>
@@ -226,30 +217,7 @@
           <div class="card"><i class="fa fa-hand-holding-heart"></i><h3>Charity</h3><p>200 people</p></div>
         </div>
       </div>
-  <!-- SETTINGS PANEL -->
-  <div class="settings-panel" id="settings-panel">
-    <div class="settings-header">
-      <h3>Settings</h3>
-      <button id="settings-close-btn" class="close-btn" aria-label="Close settings">&times;</button>
-    </div>
-    <div class="settings-item theme-toggle">
-      <strong>Theme</strong>
-      <button id="theme-toggle-btn" class="btn btn-secondary">Switch to Dark</button>
-    </div>
-    <div class="settings-item">
-      <strong>Language</strong>
-      <span>English</span>
-    </div>
-    <div class="settings-item">
-      <strong>Notifications</strong>
-      <span>Enabled</span>
-    </div>
-  </div>
-  <!-- Overlay for mobile sidebar -->
-  <div class="overlay" id="overlay"></div>
-
-      <!-- 2. ADD STUDENT MODULE (Your existing wizard) -->
-      <!-- This ID matches the 'addstudent' link -->
+    
       <div id="admission-module" class="module" style="display: none;">
         <div class="wizard-container">
           <h2>New Student Admission</h2>
@@ -263,7 +231,6 @@
           
           <form id="admission-form">
             <div class="step-content">
-              <!-- Step 1: Personal Details -->
               <div class="step active">
                 <h3>Step 1: Student's Personal Details</h3>
                 <div class="form-group"><label for="first-name" class="required">First Name</label><input type="text" id="first-name" autocomplete="given-name" required></div>
@@ -272,7 +239,6 @@
                 <div class="form-group"><label for="dob" class="required">Date of Birth</label><input type="date" id="dob" required></div>
                 <div class="form-group"><label for="address" class="required">Home Address</label><input type="text" id="address" placeholder="Street, City, Postal Code" autocomplete="street-address" required></div>
               </div>
-              <!-- Step 2: Academic Information -->
               <div class="step">
                 <h3>Step 2: Academic Information</h3>
                 <div class="form-group">
@@ -287,7 +253,6 @@
                 <div class="form-group"><label for="prev-school" class="required">Previous School Name</label><input type="text" id="prev-school" required></div>
                 <div class="form-group"><label for="prev-school-addr">Previous School Address</label><input type="text" id="prev-school-addr"></div>
               </div>
-              <!-- Step 3: Guardian Information -->
               <div class="step">
                 <h3>Step 3: Parent/Guardian Information</h3>
                 <fieldset>
@@ -304,7 +269,6 @@
                   <div class="form-group"><label for="g2-phone">Mobile Phone</label><input type="tel" id="g2-phone" autocomplete="tel"></div>
                 </fieldset>
               </div>
-              <!-- Step 4: Medical & Emergency -->
               <div class="step">
                 <h3>Step 4: Medical & Emergency</h3>
                 <fieldset>
@@ -319,7 +283,6 @@
                   <div class="form-group"><label for="conditions" class="required">Medical Conditions (List "None" if none)</label><textarea id="conditions" required></textarea></div>
                 </fieldset>
               </div>
-              <!-- Step 5: Upload & Review -->
               <div class="step">
                 <h3>Step 5: Document Upload & Review</h3>
                 <p>Please upload the following documents and review all details before submitting.</p>
@@ -342,21 +305,80 @@
         </div>
       </div>
 
-      <!-- =================================== -->
-      <!-- NEW PLACEHOLDER MODULES (PAGES) -->
-      <!-- =================================== -->
+      <div id="student-list-module" class="module" style="display: none;">
+        <div class="list-container">
+          <h2>Student Directory</h2>
+          <p class="subtitle">Search, filter, and view student details.</p>
+          
+          <div class="filter-bar">
+            <form id="student-filter-form">
+              
+              <div class="form-group search-group">
+                <label for="student-search">Search Students</label>
+                <input type="search" id="student-search" placeholder="Search by name, ID...">
+              </div>
+              
+              <div class="form-group filter-group">
+                <label for="filter-class">Class/Grade</label>
+                <select id="filter-class">
+                  <option value="">All Classes</option>
+                  <option value="grade-9">Grade 9</option>
+                  <option value="grade-10">Grade 10</option>
+                  <option value="grade-11">Grade 11</option>
+                  <option value="grade-12">Grade 12</option>
+                </select>
+              </div>
+              
+              <div class="form-group filter-group">
+                <label for="filter-year">Academic Year</label>
+                <select id="filter-year">
+                  <option value="">All Years</option>
+                  <option value="2025-2026">2025-2026</option>
+                  <option value="2024-2025">2024-2025</option>
+                  <option value="2023-2024">2023-2024</option>
+                </select>
+              </div>
+              
+              <div class="form-group filter-group">
+                <label for="filter-term">Term</label>
+                <select id="filter-term">
+                  <option value="">All Terms</option>
+                  <option value="fall">Fall</option>
+                  <option value="spring">Spring</option>
+                  <option value="summer">Summer</option>
+                </select>
+              </div>
 
-      <!-- 3. VIEW STUDENTS MODULE -->
-      <div id="viewstudent-module" class="module" style="display: none;">
-        <h2>View All Students</h2>
-        <p class="subtitle">Search, filter, and view student details.</p>
-        <div class="card">
-          <h3>View Students Content</h3>
-          <p>This is the placeholder for the 'View Students' module. A table of students would go here.</p>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                <button type="reset" class="btn btn-secondary">Clear</button>
+              </div>
+
+            </form>
+          </div>
+          
+          <hr>
+
+          <div class="results-section">
+            <h3>Student List</h3>
+            <table class="student-list-table">
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Full Name</th>
+                  <th>Grade</th>
+                  <th>Academic Year</th>
+                  <th>Primary Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                </tbody>
+            </table>
+          </div>
         </div>
       </div>
       
-      <!-- 4. STUDENTS SUMMARY MODULE -->
       <div id="summary-module" class="module" style="display: none;">
         <h2>Students Summary</h2>
         <p class="subtitle">Analytics and summary of the student body.</p>
@@ -366,7 +388,6 @@
         </div>
       </div>
       
-      <!-- 5. MIGRATE STUDENTS MODULE -->
       <div id="migrate-module" class="module" style="display: none;">
         <h2>Migrate Students</h2>
         <p class="subtitle">Tools for promoting students to the next grade.</p>
@@ -376,7 +397,6 @@
         </div>
       </div>
 
-      <!-- 6. QUICK EDIT MODULE -->
       <div id="quickedit-module" class="module" style="display: none;">
         <h2>Quick Edit</h2>
         <p class="subtitle">Quickly edit student information in a table.</p>
@@ -386,7 +406,6 @@
         </div>
       </div>
 
-      <!-- 7. ACADEMIC EDITS MODULE -->
       <div id="academicedit-module" class="module" style="display: none;">
         <h2>Academic Edits</h2>
         <p class="subtitle">Edit student academic records.</p>
@@ -396,7 +415,6 @@
         </div>
       </div>
 
-      <!-- 8. SEARCH STUDENT MODULE -->
       <div id="searchstudent-module" class="module" style="display: none;">
         <h2>Search Student</h2>
         <p class="subtitle">Find a specific student by ID, name, or phone number.</p>
@@ -406,7 +424,6 @@
         </div>
       </div>
 
-      <!-- 9. STUDENT ACCOUNTS MODULE -->
       <div id="studentaccounts-module" class="module" style="display: none;">
         <h2>Student Accounts</h2>
         <p class="subtitle">Manage student login and portal accounts.</p>
@@ -416,7 +433,6 @@
         </div>
       </div>
 
-      <!-- 10. OLD STUDENTS DEBTS MODULE -->
       <div id="oldstudentdebt-module" class="module" style="display: none;">
         <h2>Old Students Debts</h2>
         <p class="subtitle">View outstanding debts from former students.</p>
@@ -426,7 +442,6 @@
         </div>
       </div>
 
-      <!-- 11. OLD STUDENTS RECEIPTS MODULE -->
       <div id="oldstudentrec-module" class="module" style="display: none;">
         <h2>Old Students Receipts</h2>
         <p class="subtitle">View past receipts from former students.</p>
@@ -436,13 +451,8 @@
         </div>
       </div>
 
-    </div> <!-- End .content -->
-  </div> <!-- End .layout -->
+    </div> </div> <div class="overlay" id="overlay"></div>
 
-  <!-- MOBILE OVERLAY -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- SETTINGS PANEL -->
   <div class="settings-panel" id="settings-panel">
     <div class="settings-header">
       <h3>Settings</h3>
@@ -462,7 +472,6 @@
     </div>
   </div>
 
-  <!-- ADMISSION SUCCESS POPUP -->
   <div class="popup-overlay" id="admission-popup">
     <div class="popup-content">
       <div class="popup-icon"><i class="fa-solid fa-check"></i></div>
@@ -473,9 +482,6 @@
   </div>
 
 
-  <!-- =================================== -->
-  <!-- EMBEDDED JAVASCRIPT -->
-  <!-- =================================== -->
   <script src="script.js"></script>
 </body>
 </html>

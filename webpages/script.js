@@ -8,7 +8,7 @@
  * - Core App (Sidebar, Settings, Theme, Fullscreen)
  * - Navigation (Module & Accordion)
  * - Admission Wizard (Steps, Validation, Popup)
- * - Student List (Filter, Search, Render) // *** NEW ***
+ * - Student List (Filter, Search, Render)
  * 4. HELPER FUNCTIONS
  * 5. INITIALIZATION
  * ===================================
@@ -53,8 +53,10 @@ const fullscreenIcon = fullscreenBtn.querySelector('i');
 
 // Navigation
 const navLinks = document.querySelectorAll('.sidebar .main-item, .sidebar .sub-menu a');
-// *** MODIFIED: Added #student-list-module ***
-const modules = document.querySelectorAll('#dashboard-module, #admission-module, #student-list-module');
+// *** MODIFIED: Added all existing modules to selection ***
+const modules = document.querySelectorAll(
+  '#dashboard-module, #admission-module, #student-list-module, #summary-module, #migrate-module, #quickedit-module, #academicedit-module, #searchstudent-module, #studentaccounts-module, #oldstudentdebt-module, #oldstudentrec-module'
+);
 const mobileOverlay = document.getElementById('overlay');
 
 // Admission Wizard
@@ -156,6 +158,7 @@ function handleNavigate(targetModule) {
     
     if (linkId === 'addstudent') linkMod = 'admission';
     if (linkId === 'viewstudent') linkMod = 'student-list'; // Map 'viewstudent' to 'student-list'
+    if (linkId === targetModule) linkMod = targetModule; // Map all other sub-menu IDs directly
     
     if (linkMod && linkMod === targetModule) {
         link.classList.add('active');
@@ -418,12 +421,22 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const targetId = e.currentTarget.id;
       
-      // *** MODIFIED: Handle multiple sub-menu links ***
+      // *** MODIFIED: Handle all Student Management sub-menu links ***
+      let targetModule = null;
+
       if (targetId === 'addstudent') {
-        handleNavigate('admission');
+        targetModule = 'admission';
       }
       else if (targetId === 'viewstudent') {
-        handleNavigate('student-list'); // Matches id="student-list-module"
+        targetModule = 'student-list'; // Matches id="student-list-module"
+      } 
+      // Handle other student management links directly by their ID
+      else if (['summary', 'migrate', 'quickedit', 'academicedit', 'searchstudent', 'studentaccounts', 'oldstudentdebt', 'oldstudentrec'].includes(targetId)) {
+        targetModule = targetId; // Module ID is the same as the link ID
+      }
+      
+      if (targetModule) {
+        handleNavigate(targetModule);
       }
     });
   });
@@ -469,20 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Set initial theme
   body.classList.add(currentTheme + '-theme');
-function handleNavigate(targetModule) {
-  // ...
-  // This line hides all modules
-  modules.forEach(module => {
-    module.style.display = 'none';
-  });
-
-  // This line finds the one you clicked and shows it
-  const moduleToShow = document.getElementById(targetModule + '-module');
-  if (moduleToShow) {
-    moduleToShow.style.display = 'block';
-  }
-  // ...
-}
+  
   // Logic for attractive file inputs
   document.querySelectorAll('input[type="file"]').forEach(fileInput => {
     const fileNameSpan = document.createElement('span');
@@ -491,7 +491,7 @@ function handleNavigate(targetModule) {
     fileInput.previousElementSibling.insertAdjacentElement('afterend', fileNameSpan);
 
     fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
+      if (e.target.files && e.target.files.length > 0) { 
         fileNameSpan.textContent = [...e.target.files].map(f => f.name).join(', ');
       } else {
         fileNameSpan.textContent = 'No file selected';

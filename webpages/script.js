@@ -132,9 +132,19 @@ function handleNavigate(targetModule) {
 
   activeModule = targetModule;
 
+  // *** UPDATED: Update URL hash without reloading page ***
+  if (history.pushState) {
+      history.pushState(null, null, '#' + targetModule);
+  } else {
+      window.location.hash = targetModule;
+  }
+
   // Hide all modules
   modules.forEach(module => {
-    module.style.display = 'none';
+    // Check if module exists on this page before trying to hide it
+    if (module) {
+        module.style.display = 'none';
+    }
   });
 
   // Show target module
@@ -158,7 +168,11 @@ function handleNavigate(targetModule) {
     
     if (linkId === 'addstudent') linkMod = 'admission';
     if (linkId === 'viewstudent') linkMod = 'student-list'; // Map 'viewstudent' to 'student-list'
-    if (linkId === targetModule) linkMod = targetModule; // Map all other sub-menu IDs directly
+    
+    // Map all other sub-menu IDs directly
+    if (['summary', 'migrate', 'quickedit', 'academicedit', 'searchstudent', 'studentaccounts', 'oldstudentdebt', 'oldstudentrec'].includes(linkId)) {
+        linkMod = linkId;
+    }
     
     if (linkMod && linkMod === targetModule) {
         link.classList.add('active');
@@ -178,12 +192,24 @@ function handleNavigate(targetModule) {
 
 function handleAccordion(e) {
   const item = e.currentTarget;
+  
+  // *** UPDATED: If the item is a link (<a> tag), let the browser navigate ***
+  if (item.tagName === 'A') {
+      // We only set active class here. Navigation is handled by browser.
+      // Clear active class from all other main items
+      mainItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active'); // Set current link as active
+      return; 
+  }
+  
+  // Original logic for <button> accordions
   const subMenu = item.nextElementSibling;
   const targetModule = item.dataset.menu;
 
-  // Case 1: Item has no sub-menu (like Dashboard) -> Just navigate
+  // Case 1: Item has no sub-menu (like Dashboard - but this is now an <a>)
   if (!subMenu || !subMenu.classList.contains('sub-menu')) {
-    handleNavigate(targetModule);
+    // This case might not be used anymore if all top-level items are <a> or accordions
+    handleNavigate(targetModule); 
     // Close any other open accordion
     if(openMenu) {
       openMenu.style.display = 'none';
@@ -195,7 +221,7 @@ function handleAccordion(e) {
     return;
   }
 
-  // Case 2: Item has a sub-menu -> Toggle it
+  // Case 2: Item is a <button> and has a sub-menu -> Toggle it
   const chevron = item.querySelector('.fa-chevron-down'); 
 
   // Close other open menu if there is one
@@ -224,6 +250,9 @@ function handleAccordion(e) {
  * ADMISSION WIZARD HANDLERS
  */
 function handleNextStep() {
+  // Safety check if wizard buttons exist on this page
+  if (!steps || steps.length === 0) return;
+
   if (validateStep(currentStep)) {
     if (currentStep < steps.length - 1) {
       currentStep++;
@@ -234,7 +263,9 @@ function handleNextStep() {
     }
   } else {
     // Validation failed
-    alert('Please fill out all required fields before proceeding.');
+    // Using console.error instead of alert
+    console.error('Validation Failed: Please fill out all required fields.');
+    // We can also add a visual indicator here
   }
 }
 
@@ -254,7 +285,8 @@ function handleClosePopup() {
   // Optional: You might want to clear form fields here
   // e.g., document.getElementById('admission-form').reset();
   
-  handleNavigate('dashboard');
+  // *** UPDATED: Navigate to student list instead of dashboard ***
+  handleNavigate('student-list');
 }
 
 /**
@@ -301,7 +333,8 @@ function handleClearFilters() {
 
 function handleViewProfile(e) {
   const studentId = e.currentTarget.dataset.studentid;
-  alert(`Opening profile for student ${studentId}. \n(This would navigate to the full 'Student Profile' view.)`);
+  console.log(`Opening profile for student ${studentId}.`);
+  // alert(`Opening profile for student ${studentId}. \n(This would navigate to the full 'Student Profile' view.)`);
   
   // In a real app, you would:
   // 1. Fetch detailed data for this studentId
@@ -313,6 +346,9 @@ function handleViewProfile(e) {
 // --- 4. HELPER FUNCTIONS ---
 
 function showStep(stepIndex) {
+  // Safety check if wizard elements exist
+  if (!steps || steps.length === 0 || !stepIndicators || stepIndicators.length === 0) return;
+
   // Hide all steps
   steps.forEach((step, index) => {
     step.classList.toggle('active', index === stepIndex);
@@ -328,9 +364,9 @@ function showStep(stepIndex) {
     }
   });
 
-  // Update button visibility and text
-  prevBtn.disabled = (stepIndex === 0);
-  nextBtn.textContent = (stepIndex === steps.length - 1) ? 'Submit' : 'Next';
+  // Update button visibility and text (if buttons exist)
+  if (prevBtn) prevBtn.disabled = (stepIndex === 0);
+  if (nextBtn) nextBtn.textContent = (stepIndex === steps.length - 1) ? 'Submit' : 'Next';
 }
 
 function validateStep(stepIndex) {
@@ -418,21 +454,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bind sub-menu links
   document.querySelectorAll('.sub-menu a').forEach(link => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
+      
+      // *** UPDATED: Check if the link is to another page ***
+      const href = e.currentTarget.getAttribute('href');
+      if (href && href.includes('.html')) {
+          // This is a link to another page (e.g., studentmanagement.html#...).
+          // Allow the default browser navigation.
+          return;
+      }
+
+      // If it's not an external link, it's an SPA link (like Fees, Expenses).
+      // Use the original logic.
+      e.preventDefault(); 
       const targetId = e.currentTarget.id;
       
-      // *** MODIFIED: Handle all Student Management sub-menu links ***
       let targetModule = null;
 
+      // Note: Student links will now only be handled by this
+      // if they are clicked *again* on the student page.
       if (targetId === 'addstudent') {
         targetModule = 'admission';
       }
       else if (targetId === 'viewstudent') {
-        targetModule = 'student-list'; // Matches id="student-list-module"
+        targetModule = 'student-list';
       } 
-      // Handle other student management links directly by their ID
       else if (['summary', 'migrate', 'quickedit', 'academicedit', 'searchstudent', 'studentaccounts', 'oldstudentdebt', 'oldstudentrec'].includes(targetId)) {
-        targetModule = targetId; // Module ID is the same as the link ID
+        targetModule = targetId;
+      }
+      else {
+        // This is a non-student link (e.g., 'feescate', 'newrequi')
+        console.warn(`Module for link ID '${targetId}' not found on this page.`);
       }
       
       if (targetModule) {
@@ -441,18 +492,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Bind wizard listeners
-  nextBtn.addEventListener('click', handleNextStep);
-  prevBtn.addEventListener('click', handlePrevStep);
-  popupCloseBtn.addEventListener('click', handleClosePopup);
-  
-  admissionPopup.addEventListener('click', (e) => {
-    if (e.target === admissionPopup) { 
-        handleClosePopup();
-    }
-  });
+  // Bind wizard listeners (if they exist on this page)
+  if (nextBtn && prevBtn && popupCloseBtn) {
+    nextBtn.addEventListener('click', handleNextStep);
+    prevBtn.addEventListener('click', handlePrevStep);
+    popupCloseBtn.addEventListener('click', handleClosePopup);
+    
+    admissionPopup.addEventListener('click', (e) => {
+        if (e.target === admissionPopup) { 
+            handleClosePopup();
+        }
+    });
+  }
 
-  // *** NEW: Bind student filter listeners ***
+
+  // *** NEW: Bind student filter listeners (if they exist) ***
   if (studentFilterForm) {
     studentFilterForm.addEventListener('submit', handleFilterStudents);
     studentFilterForm.addEventListener('reset', handleClearFilters);
@@ -471,8 +525,28 @@ document.addEventListener('DOMContentLoaded', () => {
     menuIcon.className = 'fa fa-chevron-left';
   }
   
-  // Set initial module
-  handleNavigate('dashboard');
+  // *** UPDATED: Set initial module based on page and hash ***
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    handleNavigate(hash); // Show module from hash (e.g., #admission)
+  } else {
+    // If no hash, check which page we're on
+    if (document.getElementById('dashboard-module')) {
+      handleNavigate('dashboard'); // We are on home.html
+    } else if (document.getElementById('admission-module')) {
+      handleNavigate('admission'); // We are on studentmanagement.html, default to 'admission'
+    } else {
+      handleNavigate('dashboard'); // Fallback
+    }
+  }
+  
+  // *** NEW: Also listen for hash changes (e.g., clicking sub-links on student page) ***
+  window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+          handleNavigate(hash);
+      }
+  });
   
   // Set initial wizard step
   showStep(0);
@@ -485,17 +559,20 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Logic for attractive file inputs
   document.querySelectorAll('input[type="file"]').forEach(fileInput => {
-    const fileNameSpan = document.createElement('span');
-    fileNameSpan.className = 'file-name';
-    fileNameSpan.textContent = 'No file selected';
-    fileInput.previousElementSibling.insertAdjacentElement('afterend', fileNameSpan);
-
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files && e.target.files.length > 0) { 
-        fileNameSpan.textContent = [...e.target.files].map(f => f.name).join(', ');
-      } else {
+    // Check if the span already exists
+    if (fileInput.previousElementSibling.classList.contains('file-name-label')) {
+        const fileNameSpan = document.createElement('span');
+        fileNameSpan.className = 'file-name';
         fileNameSpan.textContent = 'No file selected';
-      }
-    });
+        fileInput.previousElementSibling.insertAdjacentElement('afterend', fileNameSpan);
+
+        fileInput.addEventListener('change', (e) => {
+          if (e.target.files && e.target.files.length > 0) { 
+            fileNameSpan.textContent = [...e.target.files].map(f => f.name).join(', ');
+          } else {
+            fileNameSpan.textContent = 'No file selected';
+          }
+        });
+    }
   });
 });

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Montfort School Dashboard</title>
+  <!-- NEW: Title changed for this page -->
+  <title>Student Management | Montfort School</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
@@ -15,6 +16,7 @@
 </head>
 
 <body class="layout-wrapper light-theme">
+  <!-- Navbar is identical to home.html -->
   <div class="navbar">
     <div class="left">
       <button id="menu-toggle" aria-label="Toggle menu"><i class="fa fa-bars"></i></button>
@@ -30,33 +32,39 @@
   </div>
 
   <div class="layout">
+    <!-- Sidebar is identical to home.html, with the same updated links -->
     <div class="sidebar" id="sidebar">
       <ul>
         <li>
-          <button class="main-item" data-menu="dashboard">
+          <!-- UPDATED: Changed from <button> to <a> for a real page link -->
+          <a href="home.html" class="main-item" data-menu="dashboard">
             <span><i class="fa fa-home"></i>Dashboard</span>
-          </button>
+          </a>
         </li>
         <li>
+          <!-- This button still acts as an accordion toggle -->
           <button class="main-item" data-menu="student">
             <span><i class="fa fa-users"></i>Student Management</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
-            <li><a href="#" id="addstudent">Add Student</a></li>
-            <li><a href="#" id="viewstudent">View Students</a></li>
-            <li><a href="#" id="summary">Students Summary</a></li>
-            <li><a href="#" id="migrate">Migrate Students</a></li>
-            <li><a href="#" id="quickedit">Quick Edit</a></li>
-            <li><a href="#" id="academicedit">Academit Edits</a></li>
-            <li><a href="#" id="searchstudent">Search Student</a></li>
-            <li><a href="#" id="studentaccounts">Student Accounts</a></li>
-            <li><a href="#" id="oldstudentdebt">Old Students Debts</a></li>
-            <li><a href="#" id="oldstudentrec">Old Students Receipts</a></li>
+            <!-- UPDATED: Links now point to this page with a hash -->
+            <li><a href="studentmanagement.html#admission" id="addstudent">Add Student</a></li>
+            <li><a href="studentmanagement.html#student-list" id="viewstudent">View Students</a></li>
+            <li><a href="studentmanagement.html#summary" id="summary">Students Summary</a></li>
+            <li><a href="studentmanagement.html#migrate" id="migrate">Migrate Students</a></li>
+            <li><a href="studentmanagement.html#quickedit" id="quickedit">Quick Edit</a></li>
+            <li><a href="studentmanagement.html#academicedit" id="academicedit">Academit Edits</a></li>
+            <li><a href="studentmanagement.html#searchstudent" id="searchstudent">Search Student</a></li>
+            <li><a href="studentmanagement.html#studentaccounts" id="studentaccounts">Student Accounts</a></li>
+            <li><a href="studentmanagement.html#oldstudentdebt" id="oldstudentdebt">Old Students Debts</a></li>
+            <li><a href="studentmanagement.html#oldstudentrec" id="oldstudentrec">Old Students Receipts</a></li>
           </ul>
         </li>
         <li>
           <button class="main-item" data-menu="fees">
             <span><i class="fa fa-money-check"></i>Manage Fees</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="feescate">Fees Categories</a></li>
@@ -79,6 +87,7 @@
         <li>
           <button class="main-item" data-menu="expenses">
             <span><i class="fa fa-coins"></i>Manage Expenses</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="newrequi">New Requisition</a></li>
@@ -93,6 +102,7 @@
         <li>
           <button class="main-item" data-menu="revenue">
             <span><i class="fa fa-donate"></i>Manage Revenues</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="revenuecale">Revenue Categories</a></li>
@@ -103,6 +113,7 @@
         <li>
           <button class="main-item" data-menu="OLevel">
             <span><i class="fa fa-book"></i>O Level</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="addexammarks">Add Exam Marks</a></li>
@@ -131,6 +142,7 @@
         <li>
           <button class="main-item" data-menu="staff">
             <span><i class="fa fa-user-tie"></i>Staff Management</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="staffposition">Staff Position</a></li>
@@ -145,6 +157,7 @@
         <li>
           <button class="main-item" data-menu="notification">
             <span><i class="fa fa-bell"></i>Notification Center</span>
+            <i class="fa fa-chevron-down"></i>
           <ul class="sub-menu">
             <li><a href="#" id="sms">SMS Notifications</a></li>
             <li><a href="#" id="email">Email Notifications</a></li>
@@ -153,6 +166,7 @@
         <li>
           <button class="main-item" data-menu="assets">
             <span><i class="fa fa-address-card"></i>Manage Assets</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="assetcate">Asset Categories</a></li>
@@ -165,6 +179,7 @@
         <li>
           <button class="main-item" data-menu="vistors">
             <span><i class="fa fa-address-card"></i>Vistors Book</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="viewvisitors">View Visitors</a></li>
@@ -174,6 +189,7 @@
         <li>
           <button class="main-item" data-menu="attendance">
             <span><i class="fa fa-address-card"></i>Manage Attendance</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="studentatte">Student Attendance</a></li>
@@ -185,6 +201,7 @@
         <li>
           <button class="main-item" data-menu="events">
             <span><i class="fa fa-calendar-alt"></i>Events</span>
+            <i class="fa fa-chevron-down"></i>
           </button>
           <ul class="sub-menu">
             <li><a href="#" id="upcomingevents">Upcoming Events</a></li>
@@ -199,25 +216,10 @@
       </ul>
     </div>
 
+    <!-- Main content area -->
     <div class="content" id="content">
     
-      <div id="dashboard-module">
-        <h2>Welcome, Administrator </h2>
-        <p class="subtitle">Here are some quick stats and reports for Montfort School:</p>
-        <div class="cards">
-          <div class="card"><i class="fa fa-users"></i><h3>Total Students</h3><p>1,240 Enrolled</p></div>
-          <div class="card"><i class="fa fa-user-tie"></i><h3>Faculty Members</h3><p>85 Active</p></div>
-          <div class="card"><i class="fa fa-bus"></i><h3>Transport Vehicles</h3><p>12 Operational</p></div>
-          <div class="card"><i class="fa fa-book"></i><h3>Library Books</h3><p>8,500 Available</p></div>
-        </div>
-        <div class="cards" style="margin-top: 24px;">
-          <div class="card"><i class="fa fa-computer"></i><h3>Computers</h3><p>200 Available</p></div>
-          <div class="card"><i class="fa fa-futbol"></i><h3>Sports</h3><p>Teams: 8</p></div>
-          <div class="card"><i class="fa fa-building"></i><h3>Buildings</h3><p>5 blocks</p></div>
-          <div class="card"><i class="fa fa-hand-holding-heart"></i><h3>Charity</h3><p>200 people</p></div>
-        </div>
-      </div>
-    
+      <!-- NEW: All student modules from your file are pasted here -->
       <div id="admission-module" class="module" style="display: none;">
         <div class="wizard-container">
           <h2>New Student Admission</h2>
@@ -228,6 +230,7 @@
             <li><span>4</span> Medical & Emergency</li>
             <li><span>5</span> Upload & Review</li>
           </ul>
+     
           
           <form id="admission-form">
             <div class="step-content">
@@ -381,78 +384,441 @@
       
       <div id="summary-module" class="module" style="display: none;">
         <h2>Students Summary</h2>
-        <p class="subtitle">Analytics and summary of the student body.</p>
-        <div class="card">
-          <h3>Students Summary Content</h3>
-          <p>This is the placeholder for the 'Students Summary' module. Charts and graphs would go here.</p>
+        <p class="subtitle">Comprehensive analytics and summary reports for the student body.</p>
+
+        <h3>Key Enrollment Statistics</h3>
+        <div class="cards" style="margin-bottom: 32px;">
+          <div class="card">
+            <i class="fa fa-users"></i>
+            <h3>Total Enrolled</h3>
+            <p>1,240</p>
+          </div>
+          <div class="card">
+            <i class="fa fa-chart-line"></i>
+            <h3>New Admissions (Current Year)</h3>
+            <p>155 Students</p>
+          </div>
+          <div class="card">
+            <i class="fa fa-graduation-cap"></i>
+            <h3>Largest Grade Level</h3>
+            <p>Grade 10 (350 Students)</p>
+          </div>
+          <div class="card">
+            <i class="fa fa-percent"></i>
+            <h3>Retention Rate (YoY)</h3>
+            <p>92.5%</p>
+          </div>
+        </div>
+        
+        <div class="cards" style="margin-bottom: 32px;">
+          <div class="card">
+            <i class="fa fa-venus-mars"></i>
+            <h3>Gender Ratio</h3>
+            <p>55% Male / 45% Female</p>
+          </div>
+          <div class="card">
+            <i class="fa fa-globe"></i>
+            <h3>International Students</h3>
+            <p>42 Students (3.4%)</p>
+          </div>
+          <div class="card">
+            <i class="fa fa-birthday-cake"></i>
+            <h3>Average Age</h3>
+            <p>15.8 Years</p>
+          </div>
+          <div class="card">
+            <i class="fa fa-book-open"></i>
+            <h3>Students with Bursary</h3>
+            <p>120 Students (9.7%)</p>
+          </div>
+        </div>
+
+        <div class="list-container" style="max-width: none; margin-top: 0;">
+          <div class="profile-section">
+            <h3>Enrollment Trend Analysis</h3>
+            <p class="subtitle">Visualizing total student enrollment over the last five academic years.</p>
+            <div style="height: 300px; background: var(--secondary-bg); border-radius: 8px; display: grid; place-items: center; color: var(--text-color-light); font-weight: 600;">
+              [Placeholder: Interactive Line Chart Showing Enrollment Trend]
+            </div>
+          </div>
+          
+          <div class="profile-section" style="border-bottom: none; padding-bottom: 0;">
+            <h3>Current Class Distribution</h3>
+            <p class="subtitle">A breakdown of student count by current grade and academic year.</p>
+            
+            <div class="results-section">
+              <table class="student-list-table">
+                <thead>
+                  <tr>
+                    <th>Grade Level</th>
+                    <th>2024-2025 Count</th>
+                    <th>2023-2024 Count</th>
+                    <th>Year-over-Year Change</th>
+                    <th>% of Total (Current)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Grade 9</td><td>300</td><td>280</td><td style="color: var(--success-color);">+20 (7.1%)</td><td>24.2%</td></tr>
+                  <tr><td>Grade 10</td><td>350</td><td>320</td><td style="color: var(--success-color);">+30 (9.4%)</td><td>28.2%</td></tr>
+                  <tr><td>Grade 11</td><td>320</td><td>340</td><td style="color: var(--danger-color);">-20 (5.9%)</td><td>25.8%</td></tr>
+                  <tr><td>Grade 12</td><td>270</td><td>290</td><td style="color: var(--danger-color);">-20 (6.9%)</td><td>21.8%</td></tr>
+                  <tr>
+                    <td style="font-weight: 600;">TOTAL</td>
+                    <td style="font-weight: 600;">1,240</td>
+                    <td style="font-weight: 600;">1,230</td>
+                    <td style="color: var(--success-color); font-weight: 600;">+10 (0.8%)</td>
+                    <td style="font-weight: 600;">100.0%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-      
       <div id="migrate-module" class="module" style="display: none;">
-        <h2>Migrate Students</h2>
-        <p class="subtitle">Tools for promoting students to the next grade.</p>
-        <div class="card">
-          <h3>Migrate Students Content</h3>
-          <p>This is the placeholder for the 'Migrate Students' module.</p>
-        </div>
+          <div class="list-container">
+              <h2>Migrate Students</h2>
+              <p class="subtitle">Promote students to the next grade level for the new academic year.</p>
+              
+              <form class="migration-form">
+                  <h3>Select Migration Parameters</h3>
+                  <div class="cards" style="margin-bottom: 24px; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                      <div class="form-group">
+                          <label for="current-year" class="required">Current Academic Year</label>
+                          <select id="current-year" required>
+                              <option value="">Select Year...</option>
+                              <option value="2024-2025">2024-2025</option>
+                              <option value="2023-2024">2023-2024</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="source-grade" class="required">Source Grade Level</label>
+                          <select id="source-grade" required>
+                              <option value="">Select Grade...</option>
+                              <option value="grade-9">Grade 9</option>
+                              <option value="grade-10">Grade 10</option>
+                              <option value="grade-11">Grade 11</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="target-year" class="required">Target Academic Year</label>
+                          <select id="target-year" required>
+                              <option value="">Select Year...</option>
+                              <option value="2025-2026">2025-2026</option>
+                              <option value="2024-2025">2024-2025</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="target-grade" class="required">Target Grade Level</label>
+                          <select id="target-grade" required>
+                              <option value="">Select Grade...</option>
+                              <option value="grade-10">Grade 10 (Promote)</option>
+                              <option value="grade-9">Grade 9 (Repeat)</option>
+                              <option value="alumni">Alumni (Graduate/Leave)</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="step-navigation" style="justify-content: flex-start; border-top: none; padding-top: 0;">
+                      <button type="submit" class="btn btn-primary" onclick="alert('Simulating migration from ' + document.getElementById('source-grade').value + ' to ' + document.getElementById('target-grade').value)">
+                          <i class="fa fa-arrow-right-arrow-left"></i> Perform Migration/Promotion
+                      </button>
+                  </div>
+              </form>
+          </div>
       </div>
 
       <div id="quickedit-module" class="module" style="display: none;">
-        <h2>Quick Edit</h2>
-        <p class="subtitle">Quickly edit student information in a table.</p>
-        <div class="card">
-          <h3>Quick Edit Content</h3>
-          <p>This is the placeholder for the 'Quick Edit' module.</p>
-        </div>
+          <div class="list-container">
+              <h2>Quick Edit</h2>
+              <p class="subtitle">Quickly edit non-academic student information in bulk.</p>
+              
+              <div class="filter-bar">
+                   <form id="quick-edit-filter-form" style="display: flex; gap: 16px; align-items: flex-end;">
+                       <div class="form-group" style="flex-grow: 1;"><label for="qe-search">Filter Students</label><input type="search" id="qe-search" placeholder="Search by name or ID"></div>
+                       <div class="form-group"><label for="qe-grade">Grade</label><select id="qe-grade"><option value="">All</option><option value="grade-10">Grade 10</option></select></div>
+                       <div class="form-group"><label for="qe-group">House/Group</label><select id="qe-group"><option value="">All</option><option value="house-A">House A</option></select></div>
+                       <button type="submit" class="btn btn-primary btn-small">Load</button>
+                   </form>
+              </div>
+              <hr>
+
+              <div class="results-section">
+                  <h3>Students Loaded for Edit</h3>
+                  <table class="student-list-table quick-edit-table">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Name</th>
+                              <th>Grade</th>
+                              <th>House/Group</th>
+                              <th>Primary Phone</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>S-10234</td>
+                              <td><input type="text" value="Jane A. Doe"></td>
+                              <td>Grade 10</td>
+                              <td><select><option selected>House A</option><option>House B</option></select></td>
+                              <td><input type="tel" value="555-0101"></td>
+                              <td><button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button></td>
+                          </tr>
+                          <tr>
+                              <td>S-10235</td>
+                              <td><input type="text" value="John B. Smith"></td>
+                              <td>Grade 9</td>
+                              <td><select><option>House A</option><option selected>House B</option></select></td>
+                              <td><input type="tel" value="555-0202"></td>
+                              <td><button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button></td>
+                          </tr>
+                          <tr class="no-results"><td colspan="6" style="padding: 10px;">(More rows would be loaded here)</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
 
+      
       <div id="academicedit-module" class="module" style="display: none;">
-        <h2>Academic Edits</h2>
-        <p class="subtitle">Edit student academic records.</p>
-        <div class="card">
-          <h3>Academic Edits Content</h3>
-          <p>This is the placeholder for the 'Academic Edits' module.</p>
-        </div>
+          <div class="list-container">
+              <h2>Academic Edits</h2>
+              <p class="subtitle">Bulk management of student academic records, such as subjects and class assignments.</p>
+
+              <form class="bulk-academic-form">
+                  <div class="cards" style="gap: 24px; grid-template-columns: 1fr 1fr;">
+                      <div class="card">
+                          <h3>1. Select Target Group</h3>
+                          <div class="form-group"><label for="ae-grade" class="required">Select Grade Level</label><select id="ae-grade" required><option value="">Select...</option><option value="grade-10">Grade 10</option><option value="grade-11">Grade 11</option></select></div>
+                          <div class="form-group"><label for="ae-group">Select Specific Class/Set (Optional)</label><select id="ae-group"><option value="">All Classes in Grade 10</option><option value="class-A">Grade 10 - Class A</option></select></div>
+                      </div>
+                      <div class="card">
+                          <h3>2. Choose Bulk Action</h3>
+                          <div class="form-group"><label for="ae-action" class="required">Action Type</label><select id="ae-action" required><option value="">Select Action...</option><option value="set-advisor">Set Class Advisor</option><option value="add-subject">Add Optional Subject</option><option value="remove-subject">Remove Optional Subject</option></select></div>
+                          
+                          <div class="form-group"><label for="ae-value">Value for Action</label><input type="text" id="ae-value" placeholder="e.g., Mr. Smith or French"></div>
+                      </div>
+                  </div>
+                  
+                  <hr>
+                  <div style="text-align: center;">
+                      <p style="color: var(--danger-color); margin-bottom: 16px;"><i class="fa fa-triangle-exclamation"></i> Warning: This action will affect multiple student records. Proceed with caution.</p>
+                      <button type="submit" class="btn btn-primary" style="width: 50%;">
+                          <i class="fa fa-user-pen"></i> Apply Bulk Academic Edit
+                      </button>
+                  </div>
+              </form>
+          </div>
       </div>
 
       <div id="searchstudent-module" class="module" style="display: none;">
-        <h2>Search Student</h2>
-        <p class="subtitle">Find a specific student by ID, name, or phone number.</p>
-        <div class="card">
-          <h3>Search Student Content</h3>
-          <p>This is the placeholder for the 'Search Student' module. A large search bar would go here.</p>
-        </div>
+          <div class="wizard-container" style="max-width: 900px;">
+              <h2>Search Student</h2>
+              <p class="subtitle">Dedicated search tool for finding a specific student record quickly.</p>
+              
+              <form class="dedicated-search-form">
+                  <div class="form-group search-group" style="margin-bottom: 24px;">
+                      <label for="search-input" class="required">Enter Student Name, ID, or Guardian Phone Number</label>
+                      <input type="search" id="search-input" placeholder="e.g., S-10234, Jane Doe, or 555-1234" required>
+                  </div>
+                  
+                  <div style="text-align: center;">
+                      <button type="submit" class="btn btn-primary" style="width: 50%;">
+                          <i class="fa fa-magnifying-glass"></i> Search Record
+                      </button>
+                  </div>
+              </form>
+
+              <hr style="margin-top: 32px;">
+
+              <div class="results-section">
+                  <h3 style="text-align: center;">Search Results</h3>
+                  <table class="student-list-table">
+                      <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>Full Name</th>
+                              <th>Grade</th>
+                              <th>Primary Contact</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="no-results">
+                            <td colspan="5">Start a search to display student records.</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
 
       <div id="studentaccounts-module" class="module" style="display: none;">
-        <h2>Student Accounts</h2>
-        <p class="subtitle">Manage student login and portal accounts.</p>
-        <div class="card">
-          <h3>Student Accounts Content</h3>
-          <p>This is the placeholder for the 'Student Accounts' module.</p>
-        </div>
+          <div class="list-container">
+              <h2>Student Accounts</h2>
+              <p class="subtitle">Manage student portal login details, passwords, and account status.</p>
+
+              <div class="filter-bar">
+                   <form id="account-filter-form" style="display: flex; gap: 16px; align-items: flex-end;">
+                       <div class="form-group" style="flex-grow: 1;"><label for="acc-search">Filter Accounts</label><input type="search" id="acc-search" placeholder="Search by name or ID"></div>
+                       <div class="form-group"><label for="acc-status">Status</label><select id="acc-status"><option value="">All</option><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
+                       <button type="submit" class="btn btn-primary btn-small">Load Accounts</button>
+                   </form>
+              </div>
+              <hr>
+
+              <div class="results-section">
+                  <h3>Account Status List</h3>
+                  <table class="student-list-table">
+                      <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>Name</th>
+                              <th>Username</th>
+                              <th>Last Login</th>
+                              <th>Status</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>S-10234</td>
+                              <td>Jane A. Doe</td>
+                              <td>jane.doe10</td>
+                              <td>2025-09-15</td>
+                              <td><span style="color: var(--success-color); font-weight: 600;">Active</span></td>
+                              <td>
+                                  <button class="btn btn-small btn-secondary"><i class="fa fa-key"></i> Reset Password</button>
+                                  <button class="btn btn-small btn-danger"><i class="fa fa-lock"></i> Deactivate</button>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>S-10236</td>
+                              <td>Michael C. Johnson</td>
+                              <td>michael.c11</td>
+                              <td>Never</td>
+                              <td><span style="color: var(--danger-color); font-weight: 600;">Inactive</span></td>
+                              <td>
+                                  <button class="btn btn-small btn-secondary"><i class="fa fa-key"></i> Reset Password</button>
+                                  <button class="btn btn-small btn-success"><i class="fa fa-unlock"></i> Activate</button>
+                              </td>
+                          </tr>
+                          <tr class="no-results"><td colspan="6" style="padding: 10px;">(More accounts listed here)</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
 
       <div id="oldstudentdebt-module" class="module" style="display: none;">
-        <h2>Old Students Debts</h2>
-        <p class="subtitle">View outstanding debts from former students.</p>
-        <div class="card">
-          <h3>Old Students Debts Content</h3>
-          <p>This is the placeholder for the 'Old Students Debts' module.</p>
-        </div>
+          <div class="list-container">
+              <h2>Old Students Debts</h2>
+              <p class="subtitle">Track outstanding balances owed by former students.</p>
+
+              <div class="filter-bar">
+                   <form id="debt-filter-form" style="display: flex; gap: 16px; align-items: flex-end;">
+                       <div class="form-group" style="flex-grow: 1;"><label for="debt-search">Search Former Students</label><input type="search" id="debt-search" placeholder="Search by name or ID"></div>
+                       <div class="form-group"><label for="debt-year">Graduation Year</label><select id="debt-year"><option value="">All Years</option><option value="2023">2023</option><option value="2024">2024</option></select></div>
+                       <button type="submit" class="btn btn-primary btn-small">Search</button>
+                   </form>
+              </div>
+              <hr>
+
+              <div class="results-section">
+                  <h3>Outstanding Debts</h3>
+                  <table class="student-list-table">
+                      <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>Full Name</th>
+                              <th>Graduation Year</th>
+                              <th>Outstanding Balance</th>
+                              <th>Last Contact Date</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>A-9001</td>
+                              <td>Albert B. Charles</td>
+                              <td>2023</td>
+                              <td style="color: var(--danger-color); font-weight: 600;">$ 1,250.00</td>
+                              <td>2025-05-10</td>
+                              <td><button class="btn btn-small btn-primary">Record Payment</button></td>
+                          </tr>
+                          <tr>
+                              <td>A-9008</td>
+                              <td>Zoe D. Williams</td>
+                              <td>2024</td>
+                              <td style="color: var(--danger-color); font-weight: 600;">$ 350.00</td>
+                              <td>2025-09-01</td>
+                              <td><button class="btn btn-small btn-primary">Record Payment</button></td>
+                          </tr>
+                          <tr class="no-results"><td colspan="6" style="padding: 10px;">(More debt records listed here)</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
 
       <div id="oldstudentrec-module" class="module" style="display: none;">
-        <h2>Old Students Receipts</h2>
-        <p class="subtitle">View past receipts from former students.</p>
-        <div class="card">
-          <h3>Old Students Receipts Content</h3>
-          <p>This is the placeholder for the 'Old Students Receipts' module.</p>
-        </div>
+          <div class="list-container">
+              <h2>Old Students Receipts</h2>
+              <p class="subtitle">Access archived payment receipts for former students.</p>
+
+              <div class="filter-bar">
+                   <form id="receipt-filter-form" style="display: flex; gap: 16px; align-items: flex-end;">
+                       <div class="form-group" style="flex-grow: 1;"><label for="rec-search">Search Former Students</label><input type="search" id="rec-search" placeholder="Search by name or ID"></div>
+                       <div class="form-group"><label for="rec-type">Payment Type</label><select id="rec-type"><option value="">All Types</option><option value="tuition">Tuition</option><option value="exam">Exam Fees</option></select></div>
+                       <button type="submit" class="btn btn-primary btn-small">Search</button>
+                   </form>
+              </div>
+              <hr>
+
+              <div class="results-section">
+                  <h3>Receipt History</h3>
+                  <table class="student-list-table">
+                      <thead>
+                          <tr>
+                              <th>Student ID</th>
+                              <th>Full Name</th>
+                              <th>Receipt ID</th>
+                              <th>Date</th>
+                              <th>Amount</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>A-9001</td>
+                              <td>Albert B. Charles</td>
+                              <td>R-20230105-001</td>
+                              <td>2023-01-05</td>
+                              <td style="color: var(--success-color); font-weight: 600;">$ 1,500.00</td>
+                              <td><button class="btn btn-small btn-secondary">View/Print</button></td>
+                          </tr>
+                          <tr>
+                              <td>A-9008</td>
+                              <td>Zoe D. Williams</td>
+                              <td>R-20240412-005</td>
+                              <td>2024-04-12</td>
+                              <td style="color: var(--success-color); font-weight: 600;">$ 800.00</td>
+                              <td><button class="btn btn-small btn-secondary">View/Print</button></td>
+                          </tr>
+                          <tr class="no-results"><td colspan="6" style="padding: 10px;">(More receipt records listed here)</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
+       
+    </div> <!-- end .content -->
+  </div> <!-- end .layout -->
+  
+  <div class="overlay" id="overlay"></div>
 
-    </div> </div> <div class="overlay" id="overlay"></div>
-
+  <!-- Settings Panel is identical to home.html -->
   <div class="settings-panel" id="settings-panel">
     <div class="settings-header">
       <h3>Settings</h3>
@@ -472,6 +838,7 @@
     </div>
   </div>
 
+  <!-- Popup Modal is identical to home.html -->
   <div class="popup-overlay" id="admission-popup">
     <div class="popup-content">
       <div class="popup-icon"><i class="fa-solid fa-check"></i></div>
